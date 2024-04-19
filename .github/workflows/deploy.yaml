@@ -29,5 +29,5 @@ jobs:
       run: kubectl apply -f configmap.yaml
 
     - name: Deploy to Kubernetes
-      run: kubectl apply -f deployment.yaml
+      run: kubectl apply -f kube.yaml
       # run: kubectl rollout status deployment/myapp
