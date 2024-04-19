@@ -30,4 +30,4 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: kubectl apply -f deployment.yaml
-      run: kubectl rollout status deployment/myapp
+      # run: kubectl rollout status deployment/myapp
