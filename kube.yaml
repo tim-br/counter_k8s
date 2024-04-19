@@ -1,0 +1,225 @@
+apiVersion: v1
+kind: List
+items:
+
+# Pod for the first Phoenix application instance
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    name: myapp
+    labels:
+      app: myapp 
+  spec:
+    imagePullSecrets:
+      - name: my-ecr-secret
+    restartPolicy: Never
+    containers:
+    - name: myapp
+      image: 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:counter_web
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 4000
+        - containerPort: 4369  # EPMD
+        ##- containerPort: 4000  # Application specific port
+        - containerPort: 9100
+        - containerPort: 9101
+        - containerPort: 9102
+        - containerPort: 9103
+        - containerPort: 9104
+        - containerPort: 9105
+      env:
+        - name: ERL_EPMD_PORT
+          value: "4369"
+        - name: ERL_AFLAGS
+          value: "-kernel prevent_overlapping_partitions false inet_dist_listen_min 9100 inet_dist_listen_max 9105"
+      command: ["iex"]
+      args: ["--name", "myapp@myapp-service.default.svc.cluster.local", "--cookie", "abc123", "-S", "mix", "phx.server"]
+
+# Pod for the GenServer node
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    name: counternode
+    labels:
+      app: counternode 
+  spec:
+    imagePullSecrets:
+      - name: my-ecr-secret
+    restartPolicy: Never
+    containers:
+    - name: global-counter
+      image: 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:global_counter
+      imagePullPolicy: Always
+
+      ports:
+        - containerPort: 4369  # EPMD
+        - containerPort: 9100
+        - containerPort: 9101
+        - containerPort: 9102
+        - containerPort: 9103
+        - containerPort: 9104
+        - containerPort: 9105
+      env:
+        - name: ERL_EPMD_PORT
+          value: "4369"
+        - name: ERL_AFLAGS
+          value: "-kernel prevent_overlapping_partitions false inet_dist_listen_min 9100 inet_dist_listen_max 9105"
+      command: ["iex"]
+      args: ["--name", "counternode@counternode-service.default.svc.cluster.local", "--cookie", "abc123", "-S", "mix"]
+
+      ##args: ["--name", "genserver@localhost", "-S", "mix"]  # Adjust if starting differently
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: myapp-loadbalancer
+  spec:
+    type: LoadBalancer
+    selector:
+      app: myapp  # This should match the label of your pods
+    ports:
+      - protocol: TCP
+        port: 80   # Port exposed externally
+        targetPort: 4000  # 
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: counternode-service
+  spec:
+    ports:
+    - port: 4369
+      name: epmd
+    - port: 9100
+      name: dist
+    - port: 9101
+      name: dist1
+    - port: 9102
+      name: dist2
+    - port: 9103
+      name: dist3
+    - port: 9104
+      name: dist4
+    - port: 9105
+      name: dist5
+    selector:
+      app: counternode
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: myapp-service
+  spec:
+    ports:
+    - port: 4369
+      name: epmd
+    - port: 9100
+      name: dist
+    - port: 9101
+      name: dist1
+    - port: 9102
+      name: dist2
+    - port: 9103
+      name: dist3
+    - port: 9104
+      name: dist4
+    - port: 9105
+      name: dist5
+    selector:
+      app: myapp
+
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: myapp-communication
+  spec:
+    podSelector:
+      matchLabels:
+        app: myapp
+    policyTypes:
+    - Ingress
+    - Egress
+    ingress:
+    - from:
+      - podSelector: {}
+      ports:
+      - protocol: TCP
+        port: 4369
+      - protocol: TCP
+        port: 9100
+      - protocol: TCP
+        port: 9101
+      - protocol: TCP
+        port: 9102
+      - protocol: TCP
+        port: 9103
+      - protocol: TCP
+        port: 9104
+      - protocol: TCP
+        port: 9105
+    egress:
+    - to:
+      - podSelector: {}
+      ports:
+      - protocol: TCP
+        port: 4369
+      - protocol: TCP
+        port: 9100
+      - protocol: TCP
+        port: 9101
+      - protocol: TCP
+        port: 9102
+      - protocol: TCP
+        port: 9103
+      - protocol: TCP
+        port: 9104
+      - protocol: TCP
+        port: 9105
+
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: counternode-communication
+  spec:
+    podSelector:
+      matchLabels:
+        app: counternode
+    policyTypes:
+    - Ingress
+    - Egress
+    ingress:
+    - from:
+      - podSelector: {}
+      ports:
+      - protocol: TCP
+        port: 4369
+      - protocol: TCP
+        port: 9100
+      - protocol: TCP
+        port: 9101
+      - protocol: TCP
+        port: 9102
+      - protocol: TCP
+        port: 9103
+      - protocol: TCP
+        port: 9104
+      - protocol: TCP
+        port: 9105
+    egress:
+    - to:
+      - podSelector: {}
+      ports:
+      - protocol: TCP
+        port: 4369
+      - protocol: TCP
+        port: 9100
+      - protocol: TCP
+        port: 9101
+      - protocol: TCP
+        port: 9102
+      - protocol: TCP
+        port: 9103
+      - protocol: TCP
+        port: 9104
+      - protocol: TCP
+        port: 9105
