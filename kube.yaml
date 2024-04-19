@@ -1,3 +1,10 @@
+env:
+  - name: MY_COOKIE
+    valueFrom:
+      secretKeyRef:
+        name: myapp-cookie
+        key: cookie-secret
+
 apiVersion: v1
 kind: List
 items:
@@ -32,8 +39,23 @@ items:
           value: "4369"
         - name: ERL_AFLAGS
           value: "-kernel prevent_overlapping_partitions false inet_dist_listen_min 9100 inet_dist_listen_max 9105"
+        - name: MY_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: myapp-cookie
+              key: cookie-secret
+        - name: MYAPP_NODE_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: node-addresses
+              key: MYAPP_NODE_ADDRESS
+        - name: COUNTERNODE_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: node-addresses
+              key: COUNTERNODE_ADDRESS
       command: ["iex"]
-      args: ["--name", "myapp@myapp-service.default.svc.cluster.local", "--cookie", "abc123", "-S", "mix", "phx.server"]
+      args: ["--name", "$(MYAPP_NODE_ADDRESS)", "--cookie", "$(MY_COOKIE)", "-S", "mix", "phx.server"]
 
 # Pod for the GenServer node
 - apiVersion: v1
@@ -64,8 +86,18 @@ items:
           value: "4369"
         - name: ERL_AFLAGS
           value: "-kernel prevent_overlapping_partitions false inet_dist_listen_min 9100 inet_dist_listen_max 9105"
+        - name: MY_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: myapp-cookie
+              key: cookie-secret
+        - name: COUNTERNODE_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: node-addresses
+              key: COUNTERNODE_ADDRESS
       command: ["iex"]
-      args: ["--name", "counternode@counternode-service.default.svc.cluster.local", "--cookie", "abc123", "-S", "mix"]
+      args: ["--name", "$(COUNTERNODE_ADDRESS)", "--cookie", "$(MY_COOKIE)", "-S", "mix"]
 
       ##args: ["--name", "genserver@localhost", "-S", "mix"]  # Adjust if starting differently
 

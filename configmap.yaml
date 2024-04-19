@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-addresses
+data:
+  MYAPP_NODE_ADDRESS: "myapp@myapp-service.default.svc.cluster.local"
+  COUNTERNODE_ADDRESS: "counternode@counternode-service.default.svc.cluster.local"
