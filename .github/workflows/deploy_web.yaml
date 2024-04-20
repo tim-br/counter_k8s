@@ -12,10 +12,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Kubernetes context
-        uses: azure/setup-k8s@v1
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.0
         with:
-          creds: ${{ secrets.KUBE_CONFIG }}
+          version: 'v1.24.0' # Specify the version you need, default is latest stable
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}  # Ensure this is set to your cluster's region
+
+      - name: Update kubeconfig for EKS
+        run: aws eks update-kubeconfig --name my-cluster
 
       - name: Run deployment script
         run: |
