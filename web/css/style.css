@@ -1,0 +1,63 @@
+/* Overall body styling */
+body {
+  background-color: black; 
+  color: white;            /* High contrast text color */
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  margin: 0;
+  line-height: 1.6; /* Slightly more readable line spacing */
+}
+
+/* Header styling */
+h1, h2 {
+  border-bottom: 1px solid grey;
+  padding-bottom: 10px;
+}
+
+p {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+ul {
+  margin-left: 20px;
+}
+
+li:hover {
+  color: #FFD700;
+  /* cursor: pointer;*/
+}
+
+ul li a {
+  color: white;
+  text-decoration: none; 
+}
+
+ul li a:hover {
+  text-decoration: underline; 
+  color: #FFD700;         
+}
+
+/* Adding a bit of responsive design */
+@media (max-width: 600px) {
+  body {
+      padding: 10px;
+  }
+
+  h1, h2 {
+      font-size: 24px; 
+  }
+
+  p, li {
+      font-size: 16px; /* Adjust text size for readability on small devices */
+  }
+}
