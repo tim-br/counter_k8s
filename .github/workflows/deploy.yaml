@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'web/**'
 
 jobs:
   deploy:
@@ -13,14 +15,14 @@ jobs:
     - name: Install kubectl
       uses: azure/setup-kubectl@v2.0
       with:
-        version: 'v1.24.0' # Specify the version you need, default is latest stable
+        version: 'v1.24.0'
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}  # Ensure this is set to your cluster's region
+        aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Update kubeconfig for EKS
       run: aws eks update-kubeconfig --name my-cluster
