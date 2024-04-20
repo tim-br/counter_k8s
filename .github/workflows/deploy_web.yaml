@@ -1,0 +1,23 @@
+name: Deploy Web Content
+
+on:
+  push:
+    paths:
+      - 'web/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Kubernetes context
+        uses: azure/setup-k8s@v1
+        with:
+          creds: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Run deployment script
+        run: |
+          chmod +x ./compile_and_deploy_web.sh
+          ./compile_and_deploy_web.sh
