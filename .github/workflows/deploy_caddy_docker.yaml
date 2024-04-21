@@ -28,7 +28,7 @@ jobs:
         working-directory: ./caddy_docker
         run: |
           docker build -t caddy_dns .
-          docker tag counter_web 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:caddy_dns
+          docker tag caddy_dns 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:caddy_dns
           docker push 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:caddy_dns
         env:
           AWS_DEFAULT_REGION: us-west-2
