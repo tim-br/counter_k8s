@@ -39,11 +39,11 @@ li:hover {
 
 ul li a {
   color: white;
-  text-decoration: none; 
+  text-decoration: none;
+  text-decoration: underline; 
 }
 
 ul li a:hover {
-  text-decoration: underline; 
   color: #FFD700;         
 }
 
