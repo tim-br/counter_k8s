@@ -4,6 +4,7 @@ on:
       - main
     paths-ignore:
       - 'web/**'
+      - 'caddy_docker/**'
 
 jobs:
   deploy:
