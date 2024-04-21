@@ -29,5 +29,5 @@ jobs:
 
       - name: Run deployment script
         run: |
-          chmod +x ./compile_and_deploy_web.sh
-          ./compile_and_deploy_web.sh
+          chmod +x ./update_web.sh
+          ./update_web.sh

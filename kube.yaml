@@ -119,6 +119,7 @@ items:
   metadata:
     name: counternode-service
   spec:
+    type: ClusterIP
     ports:
     - port: 4369
       name: epmd
@@ -142,7 +143,10 @@ items:
   metadata:
     name: myapp-service
   spec:
+    type: ClusterIP
     ports:
+    - port: 4000
+      name: app
     - port: 4369
       name: epmd
     - port: 9100
@@ -173,8 +177,12 @@ items:
     - Egress
     ingress:
     - from:
-      - podSelector: {}
+      - podSelector:
+          matchLabels:
+            app: caddy  
       ports:
+      - protocol: TCP
+        port: 4000
       - protocol: TCP
         port: 4369
       - protocol: TCP
