@@ -20,6 +20,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy to Caddyfile
+        working-directory: ./caddy
         run: |
           kubectl create configmap caddy-config --from-file=Caddyfile=./Caddyfile --dry-run=client -o yaml | kubectl apply -f -
           kubectl rollout restart deployment caddy-deployment
