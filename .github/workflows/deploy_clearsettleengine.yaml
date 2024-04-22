@@ -1,4 +1,4 @@
-name: Counter Deployment Workflow
+name: Clear Settle Engine Deployment Workflow
 
 # on:
 #   repository_dispatch:
@@ -7,8 +7,8 @@ name: Counter Deployment Workflow
 on:
   workflow_dispatch:
       tags:
-        description: 'Test scenario tags'
-        
+        - test   
+             
 jobs:
   deploy:
     runs-on: ubuntu-latest
