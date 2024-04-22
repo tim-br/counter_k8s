@@ -32,6 +32,8 @@ spec:
               value: "4369"
             - name: ERL_AFLAGS
               value: "-kernel prevent_overlapping_partitions false inet_dist_listen_min 9100 inet_dist_listen_max 9105"
+            - name: COUNTER_MT_SUBDOMAINS
+              value: "rs,nineyards,mycompany"
             - name: MY_COOKIE
               valueFrom:
                 secretKeyRef:
