@@ -20,5 +20,5 @@ counter.nauths.io {
 }
 
 http://view.clearsettleengine.nauths.io {
-    respond "Hello, World!" 200
+    respond "χαῖρε" 200
 }
