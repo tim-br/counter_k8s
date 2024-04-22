@@ -38,6 +38,7 @@ jobs:
 
       - name: Update deployment image
         run: |
+          kubectl apply -f clearsettleengine-deployment.yaml
           kubectl set image deployment/clearsettleengine-deployment clearsettleengine=211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:clearsettleengine
 
       - name: Run migrations
