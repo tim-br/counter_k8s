@@ -43,11 +43,11 @@ jobs:
       - name: Run migrations
         working-directory: ./clearsettleengine
         run: |
-          kubectl apply -f migration-job.yaml
+          kubectl apply -f clearsettleengine-deployment.yaml
           kubectl wait --for=condition=complete job/clearsettleengine-migration
 
       - name: Restart deployment
         working-directory: ./clearsettleengine
         run: |
-          kubectl apply -f clearsettleengine-deployment
+          kubectl apply -f clearsettleengine-deployment.yaml
           kubectl rollout restart deployment/clearsettleengine-deployment
