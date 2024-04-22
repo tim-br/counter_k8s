@@ -1,0 +1,24 @@
+{
+    # Global option to use DNS provider
+    acme_dns route53
+}
+
+nauths.io {
+    root * /usr/share/caddy  # Set the root directory to where your files are mounted
+    file_server   
+}
+
+counter.nauths.io {
+    reverse_proxy myapp-service:4000
+}
+
+*.counter.nauths.io {
+    tls {
+        dns route53
+    }
+    reverse_proxy myapp-service:4000
+}
+
+http://view.clearsettleengine.nauths.io {
+    respond "Hello, World!" 200
+}

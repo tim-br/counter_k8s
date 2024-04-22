@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caddy
+  template:
+    metadata:
+      labels:
+        app: caddy
+    spec:
+      containers:
+      - name: caddy
+        image: 211125762589.dkr.ecr.us-west-2.amazonaws.com/repo:caddy_dns
+
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: caddy-config-volume
+          mountPath: /etc/caddy/Caddyfile
+          subPath: Caddyfile
+        - name: caddy-data-volume
+          mountPath: /data
+        # - name: html-volume
+        #   mountPath: /usr/share/caddy
+        #   readOnly: true
+        - name: static-content-volume
+          mountPath: /usr/share/caddy
+          readOnly: false
+        env:
+        - name: ACME_AGREE
+          value: "true" # Automatically agree to Let's Encrypt Subscriber Agreement
+      volumes:
+      - name: caddy-config-volume
+        configMap:
+          name: caddy-config
+      - name: caddy-data-volume
+        persistentVolumeClaim:
+          claimName: caddy-data-pvc
+      # - name: html-volume
+      #   configMap:
+      #     name: caddy-html
+      - name: static-content-volume
+        persistentVolumeClaim:
+          claimName: caddy-static-content
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caddy-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 443
+  selector:
+    app: caddy

@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - 'web/**'
       - 'caddy_docker/**'
+      - 'caddy/**'
 
 jobs:
   deploy:
