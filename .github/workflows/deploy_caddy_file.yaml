@@ -1,4 +1,4 @@
-name: Deploy Caddy Docker Image
+name: Deploy Caddyfile
 
 on:
   push:
