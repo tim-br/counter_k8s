@@ -20,5 +20,5 @@ counter.nauths.io {
 }
 
 view.clearsettleengine.nauths.io {
-    reverse_proxy clearsettleengineadmin-service:4000
+    respond "χαῖρε, ὦ φίλε" 200
 }
