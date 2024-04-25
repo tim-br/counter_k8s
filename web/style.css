@@ -61,3 +61,13 @@ ul li a:hover {
       font-size: 16px; /* Adjust text size for readability on small devices */
   }
 }
+
+@font-face {
+  font-family: 'Grecs du roi WG';
+  src: url('https://www.fontsaddict.com/fontface/grecs-du-roi-wg.TTF');
+}
+
+/* Apply the font to specific classes */
+.ancient-greek {
+  font-family: 'Grecs du roi WG', serif; /* Fallback font is serif */
+}
