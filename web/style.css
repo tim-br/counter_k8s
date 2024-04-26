@@ -62,12 +62,10 @@ ul li a:hover {
   }
 }
 
-@font-face {
-  font-family: 'Grecs du roi WG';
-  src: url('https://www.fontsaddict.com/fontface/grecs-du-roi-wg.TTF');
-}
-
 /* Apply the font to specific classes */
-.ancient-greek {
-  font-family: 'Grecs du roi WG', serif; /* Fallback font is serif */
+
+.description {
+    display: block; /* Makes the span appear on a new line */
+    color: #ccc;   /* A lighter gray color that shows up against black */
+    font-size: 0.8em; /* Makes the font size smaller */
 }
