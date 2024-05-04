@@ -2,7 +2,7 @@
 DEPLOYMENT_LABEL="app=caddy"
 CONTAINER_NAME="caddy"
 DESTINATION_PATH="/usr/share/caddy/"
-SOURCE_PATH="./web/"
+SOURCE_PATH="./nauths/_site/"
 
 # Get the first pod name matching the deployment label
 POD_NAME=$(kubectl get pods -l $DEPLOYMENT_LABEL -o jsonpath='{.items[0].metadata.name}')

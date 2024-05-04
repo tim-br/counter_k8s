@@ -3,7 +3,7 @@ name: Deploy Web Content
 on:
   push:
     paths:
-      - 'web/**'
+      - 'nauths/_site/**'
 
 jobs:
   deploy:
