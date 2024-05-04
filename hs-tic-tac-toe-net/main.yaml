@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tic-tac-toe-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tic-tac-toe
+  template:
+    metadata:
+      labels:
+        app: tic-tac-toe
+    spec:
+      containers:
+      - name: tic-tac-toe
+        image: 211125762589.dkr.ecr.us-west-2.amazonaws.com/hs-tic-tac-toe-net:latest
+        ports:
+        - containerPort: 9700
+        volumeMounts:
+        - name: certs-volume
+          mountPath: /app/certs
+      volumes:
+      - name: certs-volume
+        secret:
+          secretName: certs-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tic-tac-toe-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9700
+    targetPort: 9700
+  selector:
+    app: tic-tac-toe
