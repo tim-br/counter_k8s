@@ -34,7 +34,16 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 9700
+  - port: 443
     targetPort: 9700
   selector:
     app: tic-tac-toe
+
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: nginx-ingress-tcp-config
+#   namespace: ingress-nginx
+# data:
+#   "9700": "default/tic-tac-toe-service:9700"
