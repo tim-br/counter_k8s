@@ -15,6 +15,7 @@ spec:
       containers:
       - name: tic-tac-toe
         image: 211125762589.dkr.ecr.us-west-2.amazonaws.com/hs-tic-tac-toe-net:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 9700
         volumeMounts:
