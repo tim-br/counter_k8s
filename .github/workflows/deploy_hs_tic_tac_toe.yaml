@@ -34,7 +34,9 @@ jobs:
 
       - name: Deploy to Kubernetes
         working-directory: ./hs-tic-tac-toe-net
-        run: kubectl apply -f main.yaml
+        run: |
+          kubectl apply -f main.yaml
+          kubectl rollout restart deployment tic-tac-toe-deployment
 
       - name: Verify deployment
         working-directory: ./hs-tic-tac-toe-net
