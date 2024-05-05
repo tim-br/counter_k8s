@@ -17,6 +17,9 @@ jobs:
         with:
           version: 'v1.24.0' # Specify the version you need, default is latest stable
 
+      - name: Check AWS User Identity
+        run: aws sts get-caller-identity
+        
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
