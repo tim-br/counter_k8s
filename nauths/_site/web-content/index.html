@@ -20,52 +20,66 @@
         <p class="mt-2 text-gray-400">I am a software developer interested in distributed systems, services, queues, and CQRS. I also love Markov chains and algorithms and data structures.</p>
         
         <h2 class="mt-6 text-3xl font-bold text-white">Projects</h2>
-        <ul class="list-disc pl-5 space-y-2">
+        <ul class="list-none space-y-2">
             <li>
                 <a href="https://github.com/tim-br/hs-tic-tac-toe" class="text-blue-400 hover:text-blue-600" target="_blank">Haskell Tic Tac Toe</a>
-                <span class="text-gray-400"> - This repository contains a tic tac toe implementation written in haskell which can be connected to via hs-tic-tac-toe.nauths.io:443. After downloading the server.crt file <a href="https://raw.githubusercontent.com/tim-br/hs-tic-tac-toe/main/server.crt" class="text-blue-400 hover:text-blue-600" target="_blank">here</a>, you can connect via openssl using openssl s_client -connect hs-tic-tac-toe.nauths.io:443 -CAfile server.crt -verify 1 -verify_return_error -brief. View a demo <a href="https://asciinema.org/a/tkVM26PhPAjUt3sSXLtl9l2uu" class="text-blue-400 hover:text-blue-600" target="_blank">here</a>.</span>
+                <p>This repository contains a tic tac toe implementation written in Haskell which can be connected to via <code>hs-tic-tac-toe.nauths.io:443</code>. After downloading the <a href="https://raw.githubusercontent.com/tim-br/hs-tic-tac-toe/main/server.crt">server.crt file</a>, you can connect via openssl using <code>openssl s_client -connect hs-tic-tac-toe.nauths.io:443 -CAfile server.crt -verify 1 -verify_return_error -brief</code>. View a demo <a href="https://asciinema.org/a/tkVM26PhPAjUt3sSXLtl9l2uu">here</a>.</p>
             </li>
-            <!-- Additional projects would be styled similarly -->
+            <li><a href="https://counter.nauths.io" class="text-blue-400 hover:text-blue-600" target="_blank">Multi Tenant Distributed Counter</a></li>
+            <li><a href="https://view.clearsettleengine.nauths.io" class="text-blue-400 hover:text-blue-600" target="_blank">Clear Settle Engine</a></li>
+            <li><a href="https://myjwt.nauths.io" class="text-blue-400 hover:text-blue-600" target="_blank">Login App with Auth0</a></li>
+            <li><a href="https://github.com/tim-br/counter_k8s" class="text-blue-400 hover:text-blue-600" target="_blank">My main K8s repo</a></li>
+            <li>
+              <a href="https://github.com/tim-br/n-queens" class="text-blue-400 hover:text-blue-600" target="_blank">N-Queens Problem</a>
+              <span class="description">This repository contains an n-queens implementation in prolog. A demo can be viewed <a href="https://asciinema.org/a/b0YimrR8IbYlh2qw9RDrzxwtd" target="_blank">here</a>.</span>
+            </li>
+            <li>
+              <a href="https://github.com/tim-br/binary-trees-pl" class="text-blue-400 hover:text-blue-600" target="_blank">Prolog Binary Trees</a>
+              <span class="description">This repository contains prolog code to generate binary trees and write them to an svg file.</span>
+            </li>    
         </ul>
 
         <h2 class="mt-6 text-3xl font-bold text-white">Skills</h2>
-        <ul class="list-disc pl-5 space-y-1">
+        <ul class="list-none space-y-2">
             <li>Javascript</li>
             <li>React</li>
             <li>Kubernetes</li>
             <li>Elixir</li>
             <li>Python</li>
             <li>Prolog</li>
-            <li>Unix</li>
+            <li>UNIX</li>
             <li>Git</li>
             <li>AWS</li>
         </ul>
 
         <h2 class="mt-6 text-3xl font-bold text-white">Learning</h2>
-        <ul class="list-disc pl-5 space-y-1">
+        <ul class="list-none space-y-2">
             <li>Rust</li>
             <li>Golang</li>
             <li>Haskell</li>
         </ul>
 
         <h2 class="mt-6 text-3xl font-bold text-white">Interests</h2>
-        <ul class="list-disc pl-5 space-y-1">
+        <ul class="list-none space-y-2">
             <li>Programming</li>
             <li class="ancient-greek">Ἑλληνίζειν</li>
             <li class="ancient-greek">ποίησις</li>
             <li>Italian</li>
-            <li><a href="./jumprope" target="_blank">Jump Rope</a></li>
+            <li>Jump Rope</li>
             <li>Swimming</li>
             <li>Dance</li>
         </ul>
 
         <h2 class="mt-6 text-3xl font-bold text-white">Links</h2>
-        <ul class="list-disc pl-5 space-y-1">
+        <ul class="list-none space-y-2">
             <li><a href="https://cs.stanford.edu/~knuth/" class="text-blue-400 hover:text-blue-600" target="_blank">Donald E. Knuth Homepage</a></li>
         </ul>
     </div>
 
-    <script src="../script.js"></script>
+    <footer class="text-center text-gray-400 text-sm mt-10">
+        <p>Site generated with Hakyll</p>
+    </footer>
+
 </body>
 </html>
 
